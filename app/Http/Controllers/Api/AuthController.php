@@ -49,4 +49,27 @@ class AuthController extends Controller
             'message' => 'Logout berhasil.',
         ]);
     }
+
+    public function categories(Request $request): JsonResponse
+    {
+        $type = $request->query('type');
+        $data = [];
+
+        if ($type === 'pemasukan') {
+            $data['kategori_pemasukan'] = \Illuminate\Support\Facades\DB::table('kategori_pemasukan')->get();
+        } elseif ($type === 'pengeluaran') {
+            $data['kategori_pengeluaran'] = \Illuminate\Support\Facades\DB::table('kategori_pengeluaran')->get();
+        } else {
+            // Jika tidak ada parameter, ambil dua-duanya
+            $data['kategori_pemasukan'] = \Illuminate\Support\Facades\DB::table('kategori_pemasukan')->get();
+            $data['kategori_pengeluaran'] = \Illuminate\Support\Facades\DB::table('kategori_pengeluaran')->get();
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Daftar kategori berhasil diambil.',
+            'data'    => $data,
+        ]);
+    }
+
 }

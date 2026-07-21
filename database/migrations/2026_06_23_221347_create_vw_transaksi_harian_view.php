@@ -8,7 +8,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::statement("
-            CREATE VIEW vw_transaksi_harian AS
+            CREATE OR REPLACE VIEW vw_transaksi_harian AS
 
             SELECT
                 ROW_NUMBER() OVER (

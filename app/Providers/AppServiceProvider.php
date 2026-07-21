@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Kosongkan dari pemanggilan Passport
     }
 
     /**
@@ -32,9 +32,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
         Pemasukan::observe(PemasukanObserver::class);
         Pengeluaran::observe(PengeluaranObserver::class);
+        
         LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
             $switch->
             locales(['id', 'en', 'fr'])
@@ -46,11 +46,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Event::listen(function (Login $event) {
-
             $event->user->update([
                 'last_login_at' => now(),
             ]);
-
         });
     }
 }
